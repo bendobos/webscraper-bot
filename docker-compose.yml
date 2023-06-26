@@ -2,10 +2,12 @@ services:
   webscraper-bot:
     build: .
     environment:
-      - CLIENT_ID=
-      - CLIENT_TOKEN=
+      - CLIENT_ID=1
+      - CLIENT_TOKEN=2
       - DATABASE_URL=postgresql://webscraper:postgres@webscraper-bot-db:5432/webscraper
-      - PORT=
+      - PORT=3000
+    networks:
+      - network1
   webscraper-bot-db:
     image: "postgres:alpine"
     restart: always
@@ -14,7 +16,14 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "webscraper-bot-db:/var/lib/postgresql/data"
+    networks:
+      - network1
 
 volumes:
   webscraper-bot-db:
     driver: local
+
+networks:
+  network1:
+    name: cloudbox
+    external: true
