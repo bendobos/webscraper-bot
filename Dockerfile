@@ -5,7 +5,7 @@ ARG CLIENT_TOKEN
 ARG DATABASE_URL
 ARG PORT
 
-RUN apk update && apk add git
+RUN apk update && apk add --no-cache --upgrade git bash
 
 RUN git clone https://github.com/bendobos/webscraper-bot.git --depth 1
 RUN cd webscraper-bot
