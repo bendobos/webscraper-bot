@@ -12,8 +12,6 @@ services:
       - PORT=3000
     depends_on:
       - webscraper-bot-db
-    networks:
-      - network1
   webscraper-bot-db:
     image: "postgres:alpine"
     restart: always
@@ -24,14 +22,7 @@ services:
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "webscraper-bot-db:/var/lib/postgresql/data"
-    networks:
-      - network1
 
 volumes:
   webscraper-bot-db:
     driver: local
-
-networks:
-  network1:
-    name: cloudbox
-    external: true
