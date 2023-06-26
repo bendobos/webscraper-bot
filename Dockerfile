@@ -5,7 +5,7 @@ ARG DATABASE_URL
 ENV DATABASE_URL=${DATABASE_URL}
 
 RUN apt-get update \
-    apt-get install -y apt-transport-https
+    && apt-get install -y apt-transport-https
 
 # Install latest chrome dev package and fonts to support major charsets (Chinese, Japanese, Arabic, Hebrew, Thai and a few others)
 # Note: this installs the necessary libs to make the bundled version of Chromium that Puppeteer
