@@ -1,32 +1,28 @@
 services:
   webscraper-bot:
-    build: .
+    build:
+      context: .
+      args:
+        DATABASE_URL: postgresql://webscraper:postgres@webscraper-bot-db:5432/webscraper
     restart: on-failure:5
     environment:
-      - CLIENT_ID=1
-      - CLIENT_TOKEN=2
+      - CLIENT_ID=
+      - CLIENT_TOKEN=
       - DATABASE_URL=postgresql://webscraper:postgres@webscraper-bot-db:5432/webscraper
       - PORT=3000
     depends_on:
       - webscraper-bot-db
-    networks:
-      - network1
   webscraper-bot-db:
     image: "postgres:alpine"
     restart: always
+    expose:
+      - 5432
     environment:
       - POSTGRES_USER=webscraper
       - POSTGRES_PASSWORD=postgres
     volumes:
       - "webscraper-bot-db:/var/lib/postgresql/data"
-    networks:
-      - network1
 
 volumes:
   webscraper-bot-db:
     driver: local
-
-networks:
-  network1:
-    name: cloudbox
-    external: true
