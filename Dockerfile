@@ -1,15 +1,16 @@
-FROM node:alpine
+FROM node:slim
 
 ARG CLIENT_ID
 ARG CLIENT_TOKEN
 ARG DATABASE_URL
 ARG PORT
 
-RUN apk update && apk add --no-cache --upgrade git bash
+RUN apt-get update && apt-get install -y git
 
 RUN git clone https://github.com/bendobos/webscraper-bot.git --depth 1
 WORKDIR webscraper-bot
-RUN npm install
-RUN tsc
+
+RUN yarn
+RUN yarn run build
 
 ENTRYPOINT ["npm", "start"]
