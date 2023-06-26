@@ -1,11 +1,14 @@
 services:
   webscraper-bot:
     build: .
+    restart: on-failure:5
     environment:
       - CLIENT_ID=1
       - CLIENT_TOKEN=2
       - DATABASE_URL=postgresql://webscraper:postgres@webscraper-bot-db:5432/webscraper
       - PORT=3000
+    depends_on:
+      - webscraper-bot-db
     networks:
       - network1
   webscraper-bot-db:
