@@ -1,0 +1,20 @@
+services:
+  webscraper-bot:
+    build: .
+    environment:
+      - CLIENT_ID=
+      - CLIENT_TOKEN=
+      - DATABASE_URL=postgresql://webscraper:postgres@webscraper-bot-db:5432/webscraper
+      - PORT=
+  webscraper-bot-db:
+    image: "postgres:alpine"
+    restart: always
+    environment:
+      - POSTGRES_USER=webscraper
+      - POSTGRES_PASSWORD=postgres
+    volumes:
+      - "webscraper-bot-db:/var/lib/postgresql/data"
+
+volumes:
+  webscraper-bot-db:
+    driver: local
